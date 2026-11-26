@@ -36,48 +36,15 @@ flowchart LR
     E --> F["predictions/combined.xlsx"]
 ```
 
-### Step 1: Clone Repository & Set Up `ReLeaSE`
+### Step 1: Set Up `ReLeaSE`
 
-Clone this repository together with its linked GitHub submodules:
-
-```bash
-git clone --recurse-submodules https://github.com/arygup/RL-Inverse-PEO-Design.git
-cd RL-Inverse-PEO-Design
-```
-
-*(If you already cloned without `--recurse-submodules`, run `git submodule update --init` first.)*
-
-Navigate into [`ReLeaSE/`](./ReLeaSE) and follow the environment creation and dependency installation instructions in [`ReLeaSE/README.md`](./ReLeaSE/README.md):
-
-```bash
-cd ReLeaSE
-# Follow the Conda/pip setup steps in ReLeaSE/README.md
-cd ..
-```
+Clone [`ReLeaSE`](https://github.com/isayev/ReLeaSE) (linked in [`ReLeaSE/`](./ReLeaSE)) and follow the installation and environment setup instructions in [`ReLeaSE/README.md`](./ReLeaSE/README.md).
 
 ---
 
 ### Step 2: Set Up `Chem-prop-pred` and `ChemArr`
 
-Navigate into [`Chem-prop-pred/`](./Chem-prop-pred), initialize its nested [`ChemArr`](https://github.com/learningmatter-mit/ChemArr) submodule, and follow the setup steps in [`Chem-prop-pred/README.md`](./Chem-prop-pred/README.md):
-
-```bash
-cd Chem-prop-pred
-
-# Initialize nested ChemArr submodule over HTTPS
-git -c submodule.ChemArr.url=https://github.com/learningmatter-mit/ChemArr.git submodule update --init
-
-# Create & activate the ChemArr conda environment and install both packages
-cd ChemArr
-conda env create -f environment.yml
-conda activate chemprop
-pip install -e .
-cd ..
-pip install -e .
-cd ..
-```
-
-> **Note:** Because `ReLeaSE` and `Chem-prop-pred` / `ChemArr` rely on different Python and PyTorch versions, keep them in separate Conda environments (`release` and `chemprop`) and activate the corresponding environment for each stage below.
+Set up [`Chem-prop-pred`](https://github.com/learningmatter-mit/Chem-prop-pred) (linked in [`Chem-prop-pred/`](./Chem-prop-pred)), including initializing `ChemArr` and installing the required dependencies, by following the instructions in [`Chem-prop-pred/README.md`](./Chem-prop-pred/README.md).
 
 ---
 
