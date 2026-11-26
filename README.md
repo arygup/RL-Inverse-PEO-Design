@@ -18,6 +18,8 @@ The final generated candidates and ChemPropPred-verified conductivity prediction
 RL-Inverse-PEO-Design/
 ├── ReLeaSE/                     # Linked GitHub submodule: isayev/ReLeaSE
 ├── Chem-prop-pred/              # Linked GitHub submodule: learningmatter-mit/Chem-prop-pred (includes ChemArr)
+├── step4.py                     # Surrogate MLP training & SMILES -> RDKit descriptors -> conductivity prediction
+├── step5.py                     # ReLeaSE RL fine-tuning & high-conductivity polymer SMILES generation
 ├── predictions/
 │   └── combined.xlsx            # Final RL-generated polymer SMILES & ChemPropPred conductivity predictions
 └── README.md                    # Pipeline overview, setup & reproduction instructions
@@ -59,19 +61,17 @@ Construct the standardized training dataset `data.csv` with columns `(SMILES, CO
 
 ---
 
-### Step 4: Train the Surrogate MLP Conductivity Model
+### Step 4: Train the Surrogate MLP Conductivity Model ([`step4.py`](./step4.py))
 
-Using the standardized `data.csv` (`SMILES, COND`) from Step 3, train a custom multi-layer perceptron (MLP) regression model mapping molecular descriptors/fingerprints of polymer SMILES to ionic conductivity at the reference state. This lightweight MLP serves as a fast reward oracle during reinforcement learning.
-
-*(An example Python script for training the MLP surrogate will be added in an upcoming update.)*
+Using the standardized `data.csv` (`SMILES, COND`) from Step 3, train the multi-layer perceptron (`MLPRegressor`, hidden layers `(200, 150, 100, 50)`) mapping 12 RDKit molecular descriptors of polymer SMILES to ionic conductivity at the reference state (see [`step4.py`](./step4.py)). This lightweight MLP serves as a fast reward oracle during reinforcement learning.
 
 ---
 
-### Step 5: RL Fine-Tuning in `ReLeaSE` & Final Verification with `Chem-prop-pred`
+### Step 5: RL Fine-Tuning in `ReLeaSE` ([`step5.py`](./step5.py)) & Final Verification with `Chem-prop-pred`
 
-1. **Fine-Tune the `ReLeaSE` Generative Model:**
-   - Using the trained MLP conductivity predictor as the RL reward function, fine-tune the pretrained `ReLeaSE` stack-augmented RNN generator to bias generation toward high-conductivity PEO-like polymer structures.
-   - Refer to the demonstration notebooks inside [`ReLeaSE/`](./ReLeaSE) (e.g., [`LogP_optimization_demo.ipynb`](./ReLeaSE/LogP_optimization_demo.ipynb) and [`JAK2_min_max_demo.ipynb`](./ReLeaSE/JAK2_min_max_demo.ipynb)) for the RL optimization loop structure.
+1. **Fine-Tune the `ReLeaSE` Generative Model ([`step5.py`](./step5.py)):**
+   - Using the trained MLP conductivity predictor as the RL reward function, fine-tune the pretrained `ReLeaSE` stack-augmented RNN generator to bias generation toward high-conductivity PEO-like polymer structures (see [`step5.py`](./step5.py)).
+   - Refer to the source modules in [`ReLeaSE/release/`](./ReLeaSE/release) and the demonstration notebooks inside [`ReLeaSE/`](./ReLeaSE) (e.g., [`LogP_optimization_demo.ipynb`](./ReLeaSE/LogP_optimization_demo.ipynb) and [`JAK2_min_max_demo.ipynb`](./ReLeaSE/JAK2_min_max_demo.ipynb)) for changes and debugging.
    - Sample and store the generated high-conductivity candidate SMILES strings.
 
 2. **Re-Check Generated Polymers with `Chem-prop-pred`:**
