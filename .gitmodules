@@ -1,0 +1,6 @@
+[submodule "Chem-prop-pred"]
+	path = Chem-prop-pred
+	url = https://github.com/learningmatter-mit/Chem-prop-pred.git
+[submodule "ReLeaSE"]
+	path = ReLeaSE
+	url = https://github.com/isayev/ReLeaSE.git
