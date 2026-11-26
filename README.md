@@ -57,8 +57,6 @@ Construct the standardized training dataset `data.csv` with columns `(SMILES, CO
 - **Reference Conditions:** All ionic conductivity values are normalized to a common reference state of **35 °C** and a salt concentration of **5 mol kg⁻¹**.
 - **ChemArr Imputation for Missing Reference Measurements:** Whenever direct experimental measurements at exactly **35 °C** and **5 mol kg⁻¹** are unavailable for a polymer system, conductivity at the reference state is estimated from neighboring experimental data within the available temperature and concentration ranges using the pretrained **ChemArr** model.
 
-*(An example Python script for dataset extraction and reference-condition normalization will be added in an upcoming update.)*
-
 ---
 
 ### Step 4: Train the Surrogate MLP Conductivity Model ([`step4.py`](./step4.py))
