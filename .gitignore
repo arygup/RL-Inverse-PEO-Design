@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cluster / Scratch logs
+slurm-*.out
